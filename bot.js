@@ -6,7 +6,17 @@ const fs = require('fs');
 const path = require('path');
 
 // creating the client and it's intents
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent] });
+
+// ignore this
+client.on('messageCreate', (msg) => {
+    if (msg.content.toLowerCase().includes('nele')) {
+        msg.reply('https://tenor.com/bslkl.gif');
+    }
+});
 
 // command hander
 client.commands = new Collection();

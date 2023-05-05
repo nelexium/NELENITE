@@ -36,7 +36,7 @@ const rest = new REST().setToken(process.env.TOKEN);
 
         const data = await rest.put(
             // test environment (Misc Guild)
-            Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
+            Routes.applicationCommands(process.env.CLIENT_ID),
             { body: commands },
         );
 
