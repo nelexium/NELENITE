@@ -13,7 +13,7 @@ module.exports = {
         .setDescription('Returns the description of the abilitiy provided.')
         .addStringOption(option =>
             option.setName('type')
-                .setDescription('Achievement, Title, Action, Status, Mount, Item, Fate, Quest')
+                .setDescription('Achievement, Action, Status, Mount, Item, Fate, Quest')
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('query')

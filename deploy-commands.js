@@ -29,13 +29,13 @@ for (const folder of commandFolders) {
 // initialize REST module
 const rest = new REST().setToken(process.env.TOKEN);
 
-// deploying commands
+// DEPLOYING COMMANDS
+
 (async () => {
     try {
         console.log(`[REST] Refreshing ${commands.length} slash commands.`);
 
         const data = await rest.put(
-            // test environment (Misc Guild)
             Routes.applicationCommands(process.env.CLIENT_ID),
             { body: commands },
         );
@@ -45,3 +45,4 @@ const rest = new REST().setToken(process.env.TOKEN);
         console.error(err);
     }
 })();
+
