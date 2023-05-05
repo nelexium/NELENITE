@@ -30,8 +30,6 @@ module.exports = {
         const search_index = interaction.options.getNumber('index') ?? 0;
 
         xiv.search(interaction.options.getString('query'), { indexes: [search_type] }).then(response => {
-            console.log(response.Results.slice(0, 4));
-
             const result_count = response.Pagination.ResultsTotal;
 
             if (result_count == 0) {
@@ -42,7 +40,6 @@ module.exports = {
             fetch('https://xivapi.com' + response.Results[search_index].Url)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
 
                     if (search_type == 'Action') {
                         const desc = data.Description;
