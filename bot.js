@@ -13,8 +13,16 @@ const client = new Client({ intents: [
 
 // ignore this
 client.on('messageCreate', (msg) => {
+    const gifs = ['https://media.discordapp.net/attachments/1078500556139659357/1089753933045575760/attachment.gif',
+                'https://tenor.com/view/funny-cat-gif-26552422',
+                'https://media.discordapp.net/attachments/741945274901200897/1038260219614068736/blinky.gif',
+                'https://tenor.com/view/joel-spinning-fish-joel-pride-emote-gif-26200960',
+                'https://tenor.com/view/cuh-what-cat-huh-gif-23986318',
+                'https://tenor.com/view/cow-dancing-wtf-gif-5103663',
+                'https://tenor.com/view/cow-spinning-cows-helicopter-cow-spinning-gif-26382626'];
+    const index = Math.floor(Math.random() * gifs.length);
     if (msg.content.toLowerCase().includes('nele')) {
-        msg.reply('https://tenor.com/bslkl.gif');
+        msg.reply(gifs[index]);
     }
 });
 

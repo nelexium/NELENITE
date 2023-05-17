@@ -8,7 +8,6 @@ const path = require('path');
 const commands = [];
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
-console.log(foldersPath);
 
 // grabbing all command files
 for (const folder of commandFolders) {

@@ -17,12 +17,12 @@ module.exports = {
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('query')
-                .setDescription('The name of the ability to search')
+                .setDescription('The name of the ability to search:')
                 .setRequired(true))
         .addNumberOption(option =>
             option.setName('index')
                 // eslint-disable-next-line quotes
-                .setDescription("Use this if you haven't found the ability that you wanted (leave to 0 if unsure)")
+                .setDescription("Don't complete if unsure")
                 .setRequired(false)),
 
     async execute(interaction) {
@@ -31,6 +31,7 @@ module.exports = {
 
         xiv.search(interaction.options.getString('query'), { indexes: [search_type] }).then(response => {
             const result_count = response.Pagination.ResultsTotal;
+            console.log(response);
 
             if (result_count == 0) {
                 interaction.reply(`Could not find the ability named **${interaction.options.getString('query')}**`);
@@ -45,17 +46,19 @@ module.exports = {
                         const desc = data.Description;
                         let desc_replace = desc.replace(/<\/?span(?:\s+style="color:\s*[^"]+"){1}[^>]*>/gi, '').replace(/<\/span>/gi, '');
                         let cost_value = data.PrimaryCostValue;
+                        let name_en_replace = 'NPC Action';
 
                         if (cost_value == 0) { cost_value = 'No MP cost.'; }
                         if (desc_replace == '') { desc_replace = 'No description was found.'; }
+                        if (data.ClassJob != null) { name_en_replace = data.ClassJob.NameEnglish; }
 
                         const embed = new EmbedBuilder()
                             .setColor(0x000000)
                             .setTitle(`${data.Name_en} / ${data.Name_de} / ${data.Name_fr} / ${data.Name_ja}`)
-                            .setDescription(`*Found ${result_count} results, displaying ID:${search_index}.*`)
+                            .setDescription(`*Found ${result_count} results, displaying number ${search_index}.*`)
                             .setThumbnail('https://xivapi.com' + data.IconHD)
                             .addFields(
-                                { name: 'Class', value: `${data.ClassJob.NameEnglish}`, inline: true },
+                                { name: 'Class', value: `${name_en_replace}`, inline: true },
                                 { name: 'Category', value: `${data.ActionCategory.Name}`, inline: true },
                                 { name: 'Expansion', value: `${data.GamePatch.ExName}`, inline: true },
                                 { name: 'Patch', value: `${data.GamePatch.Name}`, inline: true },
